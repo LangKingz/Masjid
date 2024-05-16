@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\Countdown;
+use App\Livewire\Distext;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +17,4 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-Route::get('/admin');
+Route::get('/admin', [Distext::class , 'index']);

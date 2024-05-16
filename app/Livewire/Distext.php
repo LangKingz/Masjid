@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class Distext extends Component
 {
@@ -10,6 +11,11 @@ class Distext extends Component
      * define public variable
      */
     public $text, $text_id, $update = false, $add = false;
+    #[On('text-updated')]
+    public function dataUpdated()
+    {
+
+    }
 
     /**
      * List of add/edit form rules
@@ -17,7 +23,6 @@ class Distext extends Component
     protected $rules = [
         'text' => 'required',
     ];
-
     /**
      * Reseting all inputted fields
      * @return void
@@ -63,6 +68,7 @@ class Distext extends Component
             session()->flash('success', 'Post Created Successfully!!');
             $this->resetFields();
             $this->add = false;
+            $this->dispatch('text-updated');
         } catch (\Exception $ex) {
             session()->flash('error', 'Something goes wrong!!');
         }
