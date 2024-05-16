@@ -8,11 +8,11 @@
     @livewireStyles
 </head>
 <body>
+    @livewireScripts
     <h1>Waktu Sekarang : <span id="time"></span></h1>
     @livewire('distext')
     @livewire('countdown')
     @livewire('jadwal')
-    @livewireScripts
 </body>
 <script>
     (function () {

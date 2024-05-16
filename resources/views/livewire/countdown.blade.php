@@ -28,7 +28,6 @@
 
                 if (distance < 0) {
                     clearInterval(this.interval);
-                    // this.fetch_next();
                     location.reload();
                     return;
                 }
