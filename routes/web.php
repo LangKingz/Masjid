@@ -1,7 +1,12 @@
 <?php
 
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\ProfileController;
+// <<<<<<< baru
+// use App\Http\Controllers\PostController;
+// use App\Http\Controllers\ProfileController;
+// =======
+use App\Livewire\Distext;
+use App\Livewire\Keuangan;
+// >>>>>>> main
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,4 +39,16 @@ Route::middleware('auth')->group(function () {
 
 });
 
-require __DIR__.'/auth.php';
+// <<<<<<< baru
+// require __DIR__.'/auth.php';
+// =======
+Route::get('/admin', [Distext::class , 'index']);
+
+Route::middleware('is_admin')->group(function () {
+    Route::get('/dashboard', [Keuangan::class , 'index'])->name('admin');
+});
+
+Route::get('/testdb', function () {
+    return view('admin.index');
+});
+// >>>>>>> main
