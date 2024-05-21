@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Distext;
+use App\Livewire\Keuangan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,11 @@ Route::get('/', function () {
 });
 
 Route::get('/admin', [Distext::class , 'index']);
+
+Route::middleware('is_admin')->group(function () {
+    Route::get('/dashboard', [Keuangan::class , 'index'])->name('admin');
+});
+
+Route::get('/testdb', function () {
+    return view('admin.index');
+});
