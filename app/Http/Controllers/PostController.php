@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\Runtext;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Runtext::all();
         return view('dashboard', compact('posts'));
     }
 
@@ -24,16 +24,16 @@ class PostController extends Controller
             'content' => 'required',
         ]);
 
-        Post::create($request->all());
+        Runtext::create($request->all());
         return redirect()->route('dashboard')->with('success', 'Post created successfully.');
     }
 
-    public function edit(Post $post)
+    public function edit(Runtext $post)
     {
         return view('posts.edit', compact('post'));
     }
 
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Runtext $post)
     {
         $request->validate([
             'content' => 'required',
@@ -42,7 +42,7 @@ class PostController extends Controller
         $post->update($request->all());
         return redirect()->route('dashboard')->with('success', 'Post updated successfully.');
     }
-    public function destroy(Post $post)
+    public function destroy(Runtext $post)
     {
         $post->delete();
         return redirect()->route('dashboard')->with('success', 'Post deleted successfully.');
