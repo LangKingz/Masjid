@@ -1,36 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Jadwal Sholat</title>
-    @livewireStyles
-</head>
-<body>
-    @livewireScripts
-    <h1>Waktu Sekarang : <span id="time"></span></h1>
-    @livewire('distext')
-    @livewire('countdown')
-    @livewire('jadwal')
-</body>
-<script>
-    (function () {
-    function checkTime(i) {
-        return (i < 10) ? "0" + i : i;
-    }
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
 
-    function startTime() {
-        var today = new Date(),
-            h = checkTime(today.getHours()),
-            m = checkTime(today.getMinutes()),
-            s = checkTime(today.getSeconds());
-        document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
-        t = setTimeout(function () {
-            startTime()
-        }, 500);
-    }
-    startTime();
-})();
-</script>
-</html>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    {{ __("You're logged in!") }}
+                    <div class="py-12">
+                        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                                <div class="p-6 bg-white dark:bg-gray-800 border-b border-gray-200">
+                                    <a href="{{ route('posts.create') }}" class="btn btn-primary p-3 bg-purple-400 rounded-md">Create New Post</a>
+                                    <table class="table-auto w-full">
+                                        <thead>
+                                            <tr>
+
+                                                <th>Content</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($posts as $post)
+                                            <tr>
+                            
+                                                <td>{{ $post->content }}</td>
+                                                <td>
+                                                    <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning">Edit</a>
+                                                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline-block;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
