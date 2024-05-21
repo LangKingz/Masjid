@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class distext extends Model
+class Runtext extends Model
 {
     use HasFactory;
+    protected $table = 'runtext';
     protected $fillable = ['text'];
 }

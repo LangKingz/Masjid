@@ -5,7 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\Attributes\On;
 
-class Distext extends Component
+class Runtext extends Component
 {
     /**
      * define public variable
@@ -38,8 +38,8 @@ class Distext extends Component
      */
     public function render()
     {
-        $display_text = \App\Models\Distext::latest()->get();
-        return view('livewire.distext', compact('display_text'));
+        $display_text = \App\Models\Runtext::latest()->get();
+        return view('livewire.runtext.runtext', compact('display_text'));
     }
 
     /**
@@ -61,7 +61,7 @@ class Distext extends Component
     {
         $this->validate();
         try {
-            \App\Models\Distext::create([
+            \App\Models\Runtext::create([
                 'text' => $this->text
             ]);
 
@@ -82,7 +82,7 @@ class Distext extends Component
     public function edit($id)
     {
         try {
-            $display_text = \App\Models\Distext::findOrFail($id);
+            $display_text = \App\Models\Runtext::findOrFail($id);
             if (!$display_text) {
                 session()->flash('error', 'Post not found');
             } else {
@@ -105,7 +105,7 @@ class Distext extends Component
     {
         $this->validate();
         try {
-            \App\Models\Distext::whereId($this->text_id)->update([
+            \App\Models\Runtext::whereId($this->text_id)->update([
                 'text' => $this->text
             ]);
             session()->flash('success', 'Post Updated Successfully!!');
@@ -135,7 +135,7 @@ class Distext extends Component
     public function destroy($id)
     {
         try {
-            \App\Models\Distext::find($id)->delete();
+            \App\Models\Runtext::find($id)->delete();
             session()->flash('success', "Post Deleted Successfully!!");
         } catch (\Exception $e) {
             session()->flash('error', "Something goes wrong!!");

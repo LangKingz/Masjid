@@ -31,6 +31,7 @@ class Keuangan extends Component
         $this->update = false;
     }
     public function store() {
+        $this->validate();
         try {
             \App\Models\keuangan::create([
                 'tanggal' => $this->tanggal,
