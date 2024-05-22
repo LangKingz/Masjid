@@ -14,7 +14,7 @@
     @livewireScripts
     @livewire('countdown')
     @livewire('jadwal')
-    @livewire('runtext')
+    {{-- @livewire('runtext') --}}
     @livewire('keuangan')
     @livewire('homelive')
 </body>
