@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{-- <meta http-equiv="refresh" content="30"> --}}
 
     @vite('resources/css/app.css')
     <style>
@@ -29,10 +30,27 @@
     @livewireScripts
     @livewire('countdown')
     @livewire('jadwal')
-    @livewire('runningtext')
     @livewire('keuangan')
+    @livewire('runningtext')
 </body>
 <script>
-    
+    document.addEventListener('livewire:load', function () {
+        Livewire.on('post-added', event => {
+            console.log('Post added:', event.post);
+            // Lakukan sesuatu, misalnya memperbarui UI atau menampilkan notifikasi
+            Livewire.emit('post-added', 'Post berhasil ditambahkan!');
+        });
+
+        Livewire.on('post-updated', event => {
+            console.log('Post updated:', event.post);
+            // Lakukan sesuatu, misalnya memperbarui UI atau menampilkan notifikasi
+        });
+
+        Livewire.on('post-deleted', event => {
+            console.log('Post deleted:', event.post);
+            // Lakukan sesuatu, misalnya memperbarui UI atau menampilkan notifikasi
+        });
+    });
 </script>
+
 </html>

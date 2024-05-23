@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\post;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
-class postController extends Controller
+class PostController extends Controller
 {
     public function index()
     {
-        $posts = post::all();
-        return view('dashboard',compact('posts'));
+        $posts = Post::all();
+        return view('dashboard', compact('posts'));
     }
-
 
     public function create()
     {
@@ -25,9 +24,11 @@ class postController extends Controller
             'content' => 'required',
         ]);
 
-        post::create($request->all());
+        $post = Post::create($request->all());
 
-        
+        // Kirim event ke Livewire
+        $this->sendLivewireEvent('post-added', $post);
+
         return redirect()->route('dashboard');
     }
 
@@ -43,11 +44,29 @@ class postController extends Controller
         ]);
 
         $post->update($request->all());
+
+        // Kirim event ke Livewire
+        $this->sendLivewireEvent('post-updated', $post);
+
         return redirect()->route('dashboard')->with('success', 'Post updated successfully.');
     }
+
     public function destroy(Post $post)
     {
         $post->delete();
+
+        // Kirim event ke Livewire
+        $this->sendLivewireEvent('post-deleted', $post);
+
         return redirect()->route('dashboard')->with('success', 'Post deleted successfully.');
+    }
+
+    protected function sendLivewireEvent($event, $data)
+    {
+        // Simpan data event di session agar bisa diakses oleh JavaScript
+        session()->flash('livewire-event', [
+            'name' => $event,
+            'data' => $data
+        ]);
     }
 }

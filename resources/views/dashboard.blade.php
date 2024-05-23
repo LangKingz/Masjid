@@ -57,9 +57,10 @@
             <div class="bg-white  overflow-hidden shadow-sm sm:rounded-lg mt-3">
                 <div class="p-6 text-gray-900 ">
                     <div class="mb-6 mt-3">
-                        {{-- <a href="{{ route('posts.create') }}" class="p-10 btn-create btn">Buat Pengumuman</a> --}}
+                        <a href="{{ route('posts.create') }}" class="p-5 btn-create btn">Buat Pengumuman</a>
+                        {{-- @livewire('create') --}}
                     </div>
-                    <h1 class="text-2xl font-bold text-gray-50">Merubah Pengumuman</h1>
+                    <h1 class="text-2xl font-bold text-gray-700">Merubah Pengumuman</h1>
                     <div class="card p-3 mt-4  bg-white dark:bg-gray-200  text-gray-900">
                         <div class="card-body ">
                             
@@ -71,11 +72,11 @@
                                     </div>
                                     <div class="button">
                                         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning">Edit</a>
-                                            {{-- <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline-block;">
+                                            <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class=" btn-danger">Delete</button>
-                                            </form> --}}
+                                            </form>
                                     </div>
                                 </div>
                                 @endforeach

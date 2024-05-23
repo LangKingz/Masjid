@@ -9,6 +9,8 @@ class Runningtext extends Component
 {
     public $posts;
 
+    protected $listeners = ['post-added', 'post-updated', 'post-deleted'];
+
     public function mount()
     {
         $this->refreshPosts();
@@ -24,20 +26,18 @@ class Runningtext extends Component
         $this->posts = Post::all();
     }
 
-    public function addNewPost($newPostContent)
+    public function postAdded($post)
     {
-        try {
-            // Tambahkan posting baru ke basis data
-            Post::create(['content' => $newPostContent]);
+        $this->refreshPosts();
+    }
 
-            // Perbarui daftar posting
-            $this->refreshPosts();
+    public function postUpdated($post)
+    {
+        $this->refreshPosts();
+    }
 
-            // Beri tahu pengguna bahwa penambahan berhasil
-            session()->flash('message', 'New post added successfully.');
-        } catch (\Exception $e) {
-            // Tangani kesalahan jika penambahan gagal
-            session()->flash('error', 'Failed to add new post. ' . $e->getMessage());
-        }
+    public function postDeleted($post)
+    {
+        $this->refreshPosts();
     }
 }
