@@ -56,7 +56,9 @@ Make sure you have the following installed on your development machine:
 
 During development, you can run the development server and watch for changes using:
 
-npm run dev
+```bash
+    npm run build
+```
 
 This will start Vite in development mode, enabling hot module replacement (HMR).
 
