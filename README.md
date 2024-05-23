@@ -66,7 +66,7 @@ This will start Vite in development mode, enabling hot module replacement (HMR).
 
 To build the assets for production, run:
 
-```bash
+
 npm run build
 
 This will create optimized and minified files in the `public/build` directory.
