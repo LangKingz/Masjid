@@ -41,12 +41,14 @@
     }
 
     .btn-list {
-        background-color: #2cd87a;
-        padding: 0.8rem ;
+        /* background-color: #bfda23; */
+        padding: 0.6rem ;
         border-radius: 0.4rem;
         color: white
     
     }
+
+
 </style>
 <x-app-layout>
     <x-slot name="header">
@@ -68,7 +70,7 @@
                         <a href="{{ route('posts.create') }}" class="p-5 btn-create btn">Buat Pengumuman</a>
                         {{-- @livewire('create') --}}
                     </div>
-                    <h1 class="text-2xl font-bold text-gray-700">Merubah Pengumuman</h1>
+                    <h1 class="text-2xl font-bold text-gray-700">Tempat Pengumuman</h1>
                     <div class="card p-3 mt-4  bg-white dark:bg-gray-200  text-gray-900">
                         <div class="card-body ">
                             
@@ -76,19 +78,27 @@
                                 @foreach ($posts as $post)
                                 <div class="flex justify-between p-6 ">
                                     <div class=" ">
+                                        <h1 class="text-xl font-bold text-gray-700">isi pengumuman :</h1>
                                         <p class="text-gray-600 dark:text-gray-900">{{$post->content}}</p>
-                                        <p class="{{$post->is_history ? 'text-green-500' : 'text-red-500'}}">{{$post->is_history ? "tidak ditampilkan" : "sedang ditampilkan"}}</p>
+                                        <p class="{{$post->is_history ? 'text-red-500 ' : 'text-green-500'}} mt-3">{{$post->is_history ? "tidak ditampilkan" : "sedang ditampilkan"}}</p>
                                         
                                         <p class="text-gray-500 text-sm">dibuat : {{ $post->created_at->format('Y-m-d H:i:s') }}</p>
                                         <p class="text-gray-500 text-sm">di edit : {{ $post->updated_at->format('Y-m-d H:i:s') }}</p>
                                     </div>
                                     <div class="button">
-                                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning">Edit</a>
+                                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning">Ubah</a>
                                             <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class=" btn-danger">Delete</button>
+                                                <button type="submit" class=" btn-danger">Hapus</button>
                                             </form>
+                                            <form action="{{ route('posts.toggleHistory', $post->id) }}" method="POST" style="display:inline-block;">
+                                                @csrf
+                                                <button type="submit" class=" btn-list " style="background-color: {{$post->is_history ? '#2cd87a' : '#bfda23'}}">
+                                                    {{$post->is_history ? 'Tampilkan' : 'Tidak '}}
+                                                </button>
+                                            </form>
+                                            
                                         {{-- <a href="{{ route('posts.show',$post->id)}}" class="btn-list">Tidak Ditampilkan</a> --}}
                                     </div>
                                 </div>

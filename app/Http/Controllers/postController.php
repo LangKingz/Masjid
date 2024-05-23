@@ -55,8 +55,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        $post->update(['is_history' => true]);
-
+        $post->delete();
 
         // Kirim event ke Livewire
         $this->sendLivewireEvent('post-deleted', $post);
@@ -64,10 +63,12 @@ class PostController extends Controller
         return redirect()->route('dashboard')->with('success', 'Post deleted successfully.');
     }
 
-    public function show(Post $post)
+    public function toggleHistory(Post $post)
     {
-        $post->update(['is_history' => true]);
-        return redirect()->route('dashboard')->with('success', 'Post deleted successfully.');
+        $post->is_history = !$post->is_history; // Toggle status is_history
+        $post->save();
+
+        return redirect()->route('dashboard')->with('success', 'Post status updated successfully.');
     }
 
     protected function sendLivewireEvent($event, $data)
