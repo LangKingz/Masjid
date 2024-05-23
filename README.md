@@ -1,4 +1,4 @@
-Berikut adalah contoh README yang bisa Anda gunakan untuk proyek Laravel dengan Vite dan Tailwind CSS. README ini akan membantu anggota tim Anda memahami cara mengembangkan, membuild, dan mendeploy aplikasi.
+
 
 ```markdown
 # Laravel Jetstream with Livewire and Tailwind CSS
