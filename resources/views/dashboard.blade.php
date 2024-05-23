@@ -39,6 +39,14 @@
         width: 100%;
 
     }
+
+    .btn-list {
+        background-color: #2cd87a;
+        padding: 0.8rem ;
+        border-radius: 0.4rem;
+        color: white
+    
+    }
 </style>
 <x-app-layout>
     <x-slot name="header">
@@ -69,6 +77,10 @@
                                 <div class="flex justify-between p-6 ">
                                     <div class=" ">
                                         <p class="text-gray-600 dark:text-gray-900">{{$post->content}}</p>
+                                        <p class="{{$post->is_history ? 'text-green-500' : 'text-red-500'}}">{{$post->is_history ? "tidak ditampilkan" : "sedang ditampilkan"}}</p>
+                                        
+                                        <p class="text-gray-500 text-sm">dibuat : {{ $post->created_at->format('Y-m-d H:i:s') }}</p>
+                                        <p class="text-gray-500 text-sm">di edit : {{ $post->updated_at->format('Y-m-d H:i:s') }}</p>
                                     </div>
                                     <div class="button">
                                         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning">Edit</a>
@@ -77,6 +89,7 @@
                                                 @method('DELETE')
                                                 <button type="submit" class=" btn-danger">Delete</button>
                                             </form>
+                                        {{-- <a href="{{ route('posts.show',$post->id)}}" class="btn-list">Tidak Ditampilkan</a> --}}
                                     </div>
                                 </div>
                                 @endforeach

@@ -18,16 +18,16 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Post $post)
     {
         $request->validate([
             'content' => 'required',
         ]);
 
-        $post = Post::create($request->all());
+        // Post::create($request->all());
+        $post->create($request->all());
 
-        // Kirim event ke Livewire
-        $this->sendLivewireEvent('post-added', $post);
+        // $this->sendLivewireEvent('post-added', $post);
 
         return redirect()->route('dashboard');
     }
@@ -45,6 +45,8 @@ class PostController extends Controller
 
         $post->update($request->all());
 
+
+
         // Kirim event ke Livewire
         $this->sendLivewireEvent('post-updated', $post);
 
@@ -53,11 +55,18 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        $post->delete();
+        $post->update(['is_history' => true]);
+
 
         // Kirim event ke Livewire
         $this->sendLivewireEvent('post-deleted', $post);
 
+        return redirect()->route('dashboard')->with('success', 'Post deleted successfully.');
+    }
+
+    public function show(Post $post)
+    {
+        $post->update(['is_history' => true]);
         return redirect()->route('dashboard')->with('success', 'Post deleted successfully.');
     }
 
