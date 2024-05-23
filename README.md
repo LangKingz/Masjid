@@ -1,6 +1,5 @@
 
 
-```markdown
 # Laravel Jetstream with Livewire and Tailwind CSS
 
 This project is a Laravel application using Jetstream with Livewire and Tailwind CSS. It uses Vite for managing and building frontend assets.
@@ -59,7 +58,6 @@ During development, you can run the development server and watch for changes usi
 
 ```bash
 npm run dev
-```
 
 This will start Vite in development mode, enabling hot module replacement (HMR).
 
