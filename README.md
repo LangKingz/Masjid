@@ -56,7 +56,6 @@ Make sure you have the following installed on your development machine:
 
 During development, you can run the development server and watch for changes using:
 
-```bash
 npm run dev
 
 This will start Vite in development mode, enabling hot module replacement (HMR).
@@ -67,7 +66,6 @@ To build the assets for production, run:
 
 ```bash
 npm run build
-```
 
 This will create optimized and minified files in the `public/build` directory.
 
