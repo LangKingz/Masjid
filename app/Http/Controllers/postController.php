@@ -9,7 +9,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('created_at', 'desc')->get();
         return view('dashboard', compact('posts'));
     }
 
@@ -18,19 +18,22 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store(Request $request, Post $post)
+    public function store(Request $request)
     {
         $request->validate([
             'content' => 'required',
         ]);
 
-        // Post::create($request->all());
-        $post->create($request->all());
+        Post::query()->update(['is_history' => true]);
 
-        // $this->sendLivewireEvent('post-added', $post);
+        Post::create([
+            'content' => $request->content,
+            'is_history' => false,
+        ]);
 
         return redirect()->route('dashboard');
     }
+
 
     public function edit(Post $post)
     {
@@ -44,8 +47,6 @@ class PostController extends Controller
         ]);
 
         $post->update($request->all());
-
-
 
         // Kirim event ke Livewire
         $this->sendLivewireEvent('post-updated', $post);
@@ -63,6 +64,19 @@ class PostController extends Controller
         return redirect()->route('dashboard')->with('success', 'Post deleted successfully.');
     }
 
+    // ini fitur yang dimana ketika sedangkan tampilkan yang lain tidak bisa di tampilkan
+    
+    // public function toggleHistory(Post $post)
+    // {
+    //     Post::query()->update(['is_history' => true]);
+
+    //     $post->is_history = false;
+    //     $post->save();
+
+    //     return redirect()->route('dashboard')->with('success', 'Post status updated successfully.');
+    // }
+
+    // ini bisa semuanya di tampilkan
     public function toggleHistory(Post $post)
     {
         $post->is_history = !$post->is_history; // Toggle status is_history
@@ -70,6 +84,7 @@ class PostController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Post status updated successfully.');
     }
+
 
     protected function sendLivewireEvent($event, $data)
     {
