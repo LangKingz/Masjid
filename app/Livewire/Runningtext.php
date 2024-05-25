@@ -23,7 +23,7 @@ class Runningtext extends Component
 
     public function refreshPosts()
     {
-        $this->posts = Post::orderBy('created_at', 'desc')->get();
+        $this->posts = Post::where('is_history', false)->get();
     }
 
     public function postAdded($post)
