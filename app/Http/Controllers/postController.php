@@ -66,24 +66,24 @@ class PostController extends Controller
 
     // ini fitur yang dimana ketika sedangkan tampilkan yang lain tidak bisa di tampilkan
     
-    // public function toggleHistory(Post $post)
-    // {
-    //     Post::query()->update(['is_history' => true]);
-
-    //     $post->is_history = false;
-    //     $post->save();
-
-    //     return redirect()->route('dashboard')->with('success', 'Post status updated successfully.');
-    // }
-
-    // ini bisa semuanya di tampilkan
     public function toggleHistory(Post $post)
     {
-        $post->is_history = !$post->is_history; // Toggle status is_history
+        Post::query()->update(['is_history' => true]);
+
+        $post->is_history = false;
         $post->save();
 
         return redirect()->route('dashboard')->with('success', 'Post status updated successfully.');
     }
+
+    // ini bisa semuanya di tampilkan
+    // public function toggleHistory(Post $post)
+    // {
+    //     $post->is_history = !$post->is_history; // Toggle status is_history
+    //     $post->save();
+
+    //     return redirect()->route('dashboard')->with('success', 'Post status updated successfully.');
+    // }
 
 
     protected function sendLivewireEvent($event, $data)
